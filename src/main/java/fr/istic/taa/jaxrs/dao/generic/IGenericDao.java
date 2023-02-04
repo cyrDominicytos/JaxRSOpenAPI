@@ -3,6 +3,12 @@ package fr.istic.taa.jaxrs.dao.generic;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 
+ * @author Cyriaque TOSSOU
+ * @author Yosser Eljeddi
+ *
+ */
 public interface IGenericDao<K, T extends Serializable> {
  
    T findOne(final K id);

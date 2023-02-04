@@ -20,13 +20,10 @@ public class RestServer {
         TestApplication ta = new TestApplication();
 
         ut.deploy(ta);
-
         ut.start(
                 Undertow.builder()
                         .addHttpListener(8080, "localhost")
-
         );
-
         logger.info("JAX-RS based micro-service running!");
     }
 }
