@@ -43,6 +43,8 @@ public abstract class Ticket {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
+	
+	
 	@ManyToMany
 	public List<Support> getSupports() {
 		return supports;
@@ -50,12 +52,13 @@ public abstract class Ticket {
 	public void setSupports(List<Support> supports) {
 		this.supports = supports;
 	}
-	@OneToMany
+	
+	@ManyToMany
 	@JoinTable(
-			name="ticket_tag",
-			joinColumns=@JoinColumn(name="tag_id"),
-			inverseJoinColumns=@JoinColumn(name="ticket_id")
-			)
+		name="ticket_tag",
+		joinColumns=@JoinColumn(name="tag_id"),
+		inverseJoinColumns=@JoinColumn(name="ticket_id")
+	)
 	public List<Tag> getTags() {
 		return tags;
 	}

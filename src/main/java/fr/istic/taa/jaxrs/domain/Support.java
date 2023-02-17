@@ -1,21 +1,16 @@
 package fr.istic.taa.jaxrs.domain;
 
+import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 /**
- * 
  * @author Cyriaque TOSSOU
  * @author Yosser Eljeddi
- *
  */
 @Entity
-public class Support extends Person {
+public class Support extends Person  implements Serializable{
 	private String grad;
 	private List<Ticket> tickets;
 	

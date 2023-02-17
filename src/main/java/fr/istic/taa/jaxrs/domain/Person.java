@@ -23,13 +23,12 @@ import org.checkerframework.common.aliasing.qual.Unique;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn(name="vehicule_type")
 public abstract class Person {
 	
 	protected Long id;
 	protected String name;
 	protected String email;
-	protected LocalDateTime created_at;
+	protected LocalDateTime created_at = LocalDateTime.now();
 
 	@Id
 	@GeneratedValue
@@ -53,7 +52,7 @@ public abstract class Person {
 	@NotNull(message="Veuillez renseigner l'email.")
 	@Email(message="Veuillez renseigner une adresse mail valid")
 	@Unique
-	@Column(nullable = false, unique=true)
+	@Column(nullable=false, unique=true)
 	public String getEmail() {
 		return email;
 	}

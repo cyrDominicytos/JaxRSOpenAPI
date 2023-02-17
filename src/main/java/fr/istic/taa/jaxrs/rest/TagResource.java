@@ -47,7 +47,7 @@ public class TagResource {
   @Path("/")
   @Consumes("application/json")
   public Response addUser(
-		  @Parameter(description = "User object that needs to be added to the store", required = true)
+		  @Parameter(description = "Tag object that needs to be added to the store", required = true)
 		  @Valid
 		  Tag tag) {
 	  dao.save(tag);

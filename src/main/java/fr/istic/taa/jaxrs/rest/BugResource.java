@@ -47,7 +47,7 @@ public class BugResource {
   @Path("/")
   @Consumes("application/json")
   public Response addBug(
-		  @Parameter(description = "User object that needs to be added to the store", required = true)
+		  @Parameter(description = "Bug object that needs to be added to the store", required = true)
 		  @Valid
   Bug bug) {
 	  dao.save(bug);

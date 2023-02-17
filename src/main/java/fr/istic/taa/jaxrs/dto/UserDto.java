@@ -1,7 +1,6 @@
 package fr.istic.taa.jaxrs.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import fr.istic.taa.jaxrs.domain.Person;
 import fr.istic.taa.jaxrs.domain.User;
@@ -16,7 +15,7 @@ public class UserDto implements Serializable {
 	private Long id;
 	private String name;
 	private String email;
-	private LocalDateTime created_at;
+	private String created_at;
 	
 	public 	UserDto() {
 		
@@ -46,10 +45,10 @@ public class UserDto implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public LocalDateTime getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(LocalDateTime created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 	
@@ -69,14 +68,14 @@ public class UserDto implements Serializable {
 		private String email;
 		
 		//optional params
-		private LocalDateTime created_at;
+		private String created_at;
 		
 		public UserDtoBuilder(User user) {
 			if(user!=null) {
 				this.id = user.getId();
 				this.name = user.getName();
 				this.email = user.getEmail();
-				this.created_at = user.getCreated_at();
+				this.created_at = DateFormatter.formatLocalDateTime(user.getCreated_at());
 			}
 		}
 		
@@ -95,7 +94,7 @@ public class UserDto implements Serializable {
 			return this;
 		}
 		
-		public UserDtoBuilder setCreated_at(LocalDateTime created_at) {
+		public UserDtoBuilder setCreated_at(String created_at) {
 			this.created_at = created_at;
 			return this;
 		}
