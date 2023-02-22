@@ -1,10 +1,10 @@
 package fr.istic.taa.jaxrs.rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
+import java.util.ResourceBundle;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,10 +15,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.hibernate.validator.messageinterpolation.*;
+import org.hibernate.validator.resourceloading.AggregateResourceBundleLocator;
+
 import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.User;
 import fr.istic.taa.jaxrs.dto.UserCreateDto;
 import fr.istic.taa.jaxrs.dto.UserDto;
+import fr.istic.taa.jaxrs.exceptions.CustomValidationException;
 import io.swagger.v3.oas.annotations.Parameter;
 
 /**
@@ -30,9 +34,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 
 @Path("/users")
 @Produces({"application/json"})
-public class UserResource extends AbstractResource {
+public class UsersResource {
 	private UserDao dao;
-	public UserResource() {
+	public UsersResource() {
 		this.dao = new UserDao();
 	}
 	
@@ -60,21 +64,21 @@ public class UserResource extends AbstractResource {
   public Response addUser(
 	  @Parameter(description = "User object that needs to be added to the store", required = true)
 	  @Valid UserCreateDto userDto) {
-	 /* Set<ConstraintViolation<@Valid UserCreateDto>> violations = this.getValidator().validate(userDto);
-      if (!violations.isEmpty()) {
-          // If there are validation errors, return a 400 Bad Request response
-          return Response.status(Response.Status.BAD_REQUEST)
-                  .entity(violations)
-                  .type(MediaType.APPLICATION_JSON)
-                  .build();
-      }*/
+	 try{
 		  User user = new User();
 		  user.setEmail(userDto.getEmail());
 		  user.setName(userDto.getName());
 		  dao.save(user);
 		  UserDto dto = new UserDto.UserDtoBuilder(user).build();
-		  return Response.ok().entity(dto).build();  
-	  
+		  return Response.ok().entity(dto).build();
+	 } catch (Exception e) {
+		 	//e.ge
+		  return  Response.status(500).entity(e).build();	  
+	  }
   }
   
+  static {
+      ResourceBundle bundle = ResourceBundle.getBundle("ValidationMessages");
+      ValidationMessagesResolver.getInstance().addMessageInterpolator(new ResourceBundleMessageInterpolator(new AggregateResourceBundleLocator(Arrays.asList(bundle))));
+  }
 }

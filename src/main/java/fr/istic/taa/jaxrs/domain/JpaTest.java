@@ -1,6 +1,8 @@
 package fr.istic.taa.jaxrs.domain;
 
 import javax.persistence.EntityManager;
+
+import fr.istic.taa.jaxrs.dao.generic.SupportDao;
 import fr.istic.taa.jaxrs.dao.generic.UserDao;
 
 
@@ -22,6 +24,14 @@ public class JpaTest {
 		
 		UserDao daoUser1 = new UserDao();
 		daoUser1.save(user1);
+		
+		Support s = new Support();
+		s.setEmail("test@gmail.com");
+		s.setName("Name");
+		s.setGrad("Dev");
+		
+		SupportDao sdao = new SupportDao();
+		sdao.save(s);
 		
 	}
 
