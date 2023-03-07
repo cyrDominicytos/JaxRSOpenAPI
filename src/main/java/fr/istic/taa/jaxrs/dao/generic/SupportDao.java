@@ -12,6 +12,12 @@ public class SupportDao extends AbstractJpaDao<Long, Support> {
 	public SupportDao() {
 		this.setClazz(Support.class);
 	}
+
+	@Override
+	public Boolean canBeDeleted(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
 

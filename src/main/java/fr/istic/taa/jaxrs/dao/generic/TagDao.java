@@ -12,4 +12,12 @@ public class TagDao extends AbstractJpaDao<Long, Tag>{
 	public TagDao() {
 		this.setClazz(Tag.class);
 	}
+
+	@Override
+	public Boolean canBeDeleted(Long id) {
+		BugDao bugDao = new BugDao();
+		return bugDao.hasLinkedWithTag(id);
+	}
+	
+	
 }

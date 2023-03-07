@@ -12,4 +12,10 @@ public class FeatureDao  extends AbstractJpaDao<Long, Feature>{
 	public FeatureDao() {
 		this.setClazz(Feature.class);
 	}
+
+	@Override
+	public Boolean canBeDeleted(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

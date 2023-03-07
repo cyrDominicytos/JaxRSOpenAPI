@@ -13,5 +13,11 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 	public UserDao() {
 		this.setClazz(User.class);
 	}
+
+	@Override
+	public Boolean canBeDeleted(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

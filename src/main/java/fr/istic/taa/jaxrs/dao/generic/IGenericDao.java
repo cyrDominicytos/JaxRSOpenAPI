@@ -24,6 +24,19 @@ public interface IGenericDao<K, T extends Serializable> {
  
    void deleteById(final K entityId);
    
+   
+   /**
+    * Search for each if in the given list, the related entry
+    * @param id, the list of id 
+    * @return a list of the entry that has been fund
+    */
    List<T> findAllExistingElementList(List<K> id);
+   
+   /**
+    * This method will help to check if the entry with the given id can be deleted (this means it isn't in relation with any other object)
+    * @param id, the id of the entry that will be deleted
+    * @return true if the entry can be deleted or false if not
+    */
+   Boolean canBeDeleted(final K id);
    
 }

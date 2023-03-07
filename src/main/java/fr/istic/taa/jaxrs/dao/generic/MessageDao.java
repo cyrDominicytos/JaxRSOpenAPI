@@ -12,5 +12,11 @@ public class MessageDao extends AbstractJpaDao<Long, Message>{
 	public MessageDao() {
 		this.setClazz(Message.class);
 	}
+
+	@Override
+	public Boolean canBeDeleted(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
