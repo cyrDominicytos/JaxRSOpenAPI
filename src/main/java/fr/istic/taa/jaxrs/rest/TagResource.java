@@ -94,11 +94,18 @@ public class TagResource {
   @Consumes("application/json")
   public Response updateTag(@PathParam("id") Long id,  @Parameter(description = "Tag object that needs to be updated", required = true) TagCreateDto tagDto)  {
       try {
+    	  	  //Check if the tag id is valid
 	    	  Tag tag = this.dao.findOne(id);
 	    	  if(tag!=null) {
+	    		  //Validate the constraints on the tag object
+	    		  DefaultValidator<TagCreateDto> validator = new DefaultValidator<>();
+	    		  Set<ConstraintViolation<TagCreateDto>> violations = validator.getValidator().validate(tagDto);
+	    	      if (violations.size()>0) 
+	    	    	  return validator.toResponse(violations); //one or many constraints are violated, return an error
+	    	      
 	    		  tag.setName(tagDto.getName());
-			  dao.update(tag);
-			  return Response.ok().entity("The Tag is updated successfully").build();  
+				  dao.update(tag);
+				  return Response.ok().entity("The Tag is updated successfully").build();  
     	  }else {
     		  return Response.status(Response.Status.NOT_FOUND).entity("There is no Tag with the id="+id).build(); 
     	  }

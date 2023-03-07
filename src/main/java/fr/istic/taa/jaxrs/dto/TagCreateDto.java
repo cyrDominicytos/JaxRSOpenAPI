@@ -1,9 +1,16 @@
 package fr.istic.taa.jaxrs.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
+/**
+ * 
+ * @author Cyriaque TOSSOU
+ * @author Yosser Eljeddi
+ *
+ *This class is a custome DTO to define the format to create new Tag
+ */
 public class TagCreateDto {
-	@NotNull(message = "The Tag name can not be null")
+	@NotBlank(message = "The Tag name can not be blank")
 	private String name;
 
 	public String getName() {

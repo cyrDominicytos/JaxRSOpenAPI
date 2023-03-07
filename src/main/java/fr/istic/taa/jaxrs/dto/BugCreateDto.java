@@ -3,6 +3,7 @@ package fr.istic.taa.jaxrs.dto;
 import java.util.List;
 
 import fr.istic.taa.jaxrs.domain.Tag;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -12,12 +13,12 @@ import jakarta.validation.constraints.NotNull;
  */
 public  class BugCreateDto {
 	
-	@NotNull(message = "The bug description can not be null")
+	@NotBlank(message = "The bug description can not be blank")
 	private String body;
-	@NotNull(message = "The user id can not be null")
+	@NotBlank(message = "The user id can not be blank")
 	private Long user_id;
 	
-	@NotNull(message = "You have to add at one or more tags to your bug")
+	@NotBlank(message = "You have to add one or many tags to your bug")
 	protected List<Long> tagsId;
 	
 	public List<Long> getTagsId() {

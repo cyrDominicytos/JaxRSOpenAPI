@@ -2,6 +2,7 @@ package fr.istic.taa.jaxrs.dto;
 
 import fr.istic.taa.jaxrs.domain.Support;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -13,14 +14,14 @@ import jakarta.validation.constraints.NotNull;
  */
 public class SupportCreateDto {
 	
-	@NotNull(message = "The Support name can not be null")
+	@NotBlank(message = "The Support name can not be blank")
 	private String name;
 	
-	@NotNull(message = "The Support email can not be null")
+	@NotBlank(message = "The Support email can not be blank")
 	@Email(message="The Support email is not valid")
 	private String email;
 	
-	@NotNull(message = "The Support grad can not be null")
+	@NotBlank(message = "The Support grad can not be blank")
 	private String grad;
 	
 	public SupportCreateDto(String name, String email, String grad) {

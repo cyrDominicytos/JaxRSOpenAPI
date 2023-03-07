@@ -1,6 +1,7 @@
 package fr.istic.taa.jaxrs.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -11,10 +12,10 @@ import jakarta.validation.constraints.NotNull;
  *This class is a custome DTO to define the format of new User data model
  */
 public class UserCreateDto {
-	@NotNull(message = "The User name can not be null")
+	@NotBlank(message = "The User name can not be blank")
 	private String name;
 	
-	@NotNull(message = "The User mail adress can not be null")
+	@NotBlank(message = "The User mail adress can not be blank")
 	@Email(message="The User mail adress is not valid")
 	private String email;
 	
