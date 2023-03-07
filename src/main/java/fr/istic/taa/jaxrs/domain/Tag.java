@@ -1,6 +1,7 @@
 package fr.istic.taa.jaxrs.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,14 @@ public class Tag implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;
+	protected LocalDateTime created_at = LocalDateTime.now();
 	
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
 	@Id
 	@GeneratedValue
 	public Long getId() {

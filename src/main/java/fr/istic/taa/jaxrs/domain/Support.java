@@ -22,35 +22,6 @@ public class Support extends Person  implements Serializable{
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 	public String getGrad() {

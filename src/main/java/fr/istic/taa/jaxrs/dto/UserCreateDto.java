@@ -1,7 +1,7 @@
 package fr.istic.taa.jaxrs.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 
@@ -11,16 +11,17 @@ import javax.validation.constraints.NotNull;
  *This class is a custome DTO to define the format of new User data model
  */
 public class UserCreateDto {
-	@NotNull(message="{javax.validation.constraints.NotNull.message}")
-	//@NotNull(message="The User name can not be null", messageKey = "password.length")
+	@NotNull(message = "The User name can not be null")
 	private String name;
-	@NotNull(message="{javax.validation.constraints.NotNull.message}")
-	@Email(message="{javax.validation.constraints.Email.message}")
+	
+	@NotNull(message = "The User mail adress can not be null")
+	@Email(message="The User mail adress is not valid")
 	private String email;
 	
 	public String getName() {
 		return name;
 	}
+	
 	public UserCreateDto setName(String name) {
 		this.name = name;
 		return this;

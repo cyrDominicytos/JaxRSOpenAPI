@@ -2,7 +2,7 @@ package fr.istic.taa.jaxrs.rest;
 
 import java.util.List;
 
-import javax.validation.Valid;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +16,7 @@ import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.Message;
 import fr.istic.taa.jaxrs.domain.User;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 
 /**
  * 

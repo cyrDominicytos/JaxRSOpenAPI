@@ -1,14 +1,16 @@
 package fr.istic.taa.jaxrs.exceptions;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+
 @Provider
 public class CustomValidationException implements ExceptionMapper<ConstraintViolationException> {
 
+	
 	@Override
 	public Response toResponse(ConstraintViolationException exception) {
 		 return Response.status(Response.Status.BAD_REQUEST)
@@ -18,9 +20,9 @@ public class CustomValidationException implements ExceptionMapper<ConstraintViol
 	}
 
 	private String prepareMessage(ConstraintViolationException exception) {
-	      String msg = "";
+	      String msg = "==============";
 	      for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
-	          msg+=cv.getPropertyPath()+" "+cv.getMessage()+"\n";
+	          msg+=cv.getPropertyPath()+" =============="+cv.getMessage()+"\n";
 	      }
 	      return msg;
 	  }

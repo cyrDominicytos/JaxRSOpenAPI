@@ -1,10 +1,13 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+import fr.istic.taa.jaxrs.domain.Tag;
 
 public abstract class AbstractJpaDao<K, T extends Serializable> implements IGenericDao<K, T> {
 
@@ -56,5 +59,15 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
 	public void deleteById(K entityId) {
 		T entity = findOne(entityId);
 		delete(entity);
+	}
+	
+	public  List<T> findAllExistingElementList(List<K> id) {
+   	    List<T> existingElements = new ArrayList<>();
+		for(K k: id) {
+			T t = findOne(k);
+			if(t!=null)
+				existingElements.add(t);
+		}
+		return existingElements;
 	}
 }

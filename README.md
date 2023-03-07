@@ -146,3 +146,7 @@ Restart your server and access to http://localhost:8080/api/, you should access 
 You can follow this guide to show how you can specialise the documentation through annotations.
 
 https://github.com/swagger-api/swagger-samples/blob/2.0/java/java-resteasy-appclasses/src/main/java/io/swagger/sample/resource/PetResource.java
+
+
+# Data validation
+https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted-createproject

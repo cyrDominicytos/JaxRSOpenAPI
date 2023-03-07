@@ -21,10 +21,12 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-import fr.istic.taa.jaxrs.domain.Support;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
+
+import fr.istic.taa.jaxrs.exceptions.CustomValidationException;
 import fr.istic.taa.jaxrs.rest.BugResource;
 import fr.istic.taa.jaxrs.rest.FeatureResource;
-import fr.istic.taa.jaxrs.rest.PetResource;
 import fr.istic.taa.jaxrs.rest.SupportResource;
 import fr.istic.taa.jaxrs.rest.SwaggerResource;
 import fr.istic.taa.jaxrs.rest.TagResource;
@@ -32,8 +34,26 @@ import fr.istic.taa.jaxrs.rest.UserResource;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 
 public class TestApplication extends Application {
-
-
+	
+	/*public TestApplication() {
+		 packages("com.baeldung.jersey.server");
+		 property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
+	}*/
+	
+	
+	/*public TestApplication() {
+        packages("com.baeldung.jersey.server");
+        property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
+        register(CustomValidationException.class);
+        register(UserResource.class);
+        register(BugResource.class);
+        register(TagResource.class);
+        register(SupportResource.class);
+        register(OpenApiResource.class);
+        register(SwaggerResource.class);
+        
+    }*/
+	
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> clazzes = new HashSet<Class<?>>();
@@ -45,6 +65,7 @@ public class TestApplication extends Application {
         clazzes.add(SupportResource.class);
         clazzes.add(OpenApiResource.class);
         clazzes.add(SwaggerResource.class);
+        //clazzes.add(CustomValidationException.class);
         
         return clazzes;
     }

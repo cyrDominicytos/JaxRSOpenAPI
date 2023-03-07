@@ -9,7 +9,6 @@
 	<name>jaxrs-example</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -17,7 +16,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- ==== JPA / Hibernate ==== -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
@@ -25,36 +23,36 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.4.21.Final</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.30</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.5.1</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.28</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-bean-validation -->
+		<dependency>
+		    <groupId>org.glassfish.jersey.ext</groupId>
+		    <artifactId>jersey-bean-validation</artifactId>
+		    <version>3.1.1</version>
+		</dependency>
 
 		<!-- ==== REST API ==== -->
-
-
 		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-undertow -->
 		<dependency>
 		    <groupId>org.jboss.resteasy</groupId>
 		    <artifactId>resteasy-undertow</artifactId>
 		    <version>4.6.1.Final</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jackson2-provider -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -62,34 +60,18 @@
 			<version>4.5.6.Final</version>
 		</dependency>
 		
-		<!-- hibernate validation -->
+		<!-- hibernate validation 
 		<dependency>
 		    <groupId>org.hibernate.validator</groupId>
 		    <artifactId>hibernate-validator</artifactId>
-		    <version>6.2.0.Final</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+		    <version>7.0.2.Final</version>
+		</dependency> -->
+		<!--https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
 		<dependency>
 		    <groupId>org.glassfish.jersey.core</groupId>
 		    <artifactId>jersey-server</artifactId>
 		    <version>3.1.1</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
-		  <dependency>
-		    <groupId>javax.el</groupId>
-		    <artifactId>javax.el-api</artifactId>
-		    <version>3.0.1-b06</version>
-		  </dependency>
-		  
-		  <dependency>
-		    <groupId>org.apache.tomcat</groupId>
-		    <artifactId>tomcat-el-api</artifactId>
-		    <version>9.0.54</version>
-		    <scope>provided</scope>
-		  </dependency>
-
 	<!-- OpenAPI-->
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
@@ -101,7 +83,28 @@
 			<artifactId>swagger-jaxrs2-servlet-initializer-v2</artifactId>
 			<version>2.1.4</version>
 		</dependency>
-
+		
+		
+		
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>8.0.0.Final</version>
+		</dependency>
+		<!-- Jakarta EL-->
+		<dependency>
+		    <groupId>org.glassfish.expressly</groupId>
+		    <artifactId>expressly</artifactId>
+		    <version>5.0.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator-modules</artifactId>
+		    <version>8.0.0.Final</version>
+		    <classifier>wildfly-27.0.0.Alpha4-patch</classifier>
+		    <type>zip</type>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<defaultGoal>install</defaultGoal>

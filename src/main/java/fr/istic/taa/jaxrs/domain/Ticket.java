@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +35,7 @@ public abstract class Ticket {
 	protected List<Tag> tags;
 	protected List<Support> supports;
 	protected List<Message> messages;
-	
+	protected LocalDateTime created_at = LocalDateTime.now();
 	
 	@OneToMany(mappedBy="ticket")
 	public List<Message> getMessages() {
@@ -84,8 +85,19 @@ public abstract class Ticket {
 	public String getBody() {
 		return body;
 	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
 	public void setBody(String body) {
 		this.body = body;
 	}
-	
 }

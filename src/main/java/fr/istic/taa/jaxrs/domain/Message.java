@@ -1,6 +1,7 @@
 package fr.istic.taa.jaxrs.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,15 @@ public class Message implements Serializable {
  private Long id;
  private String content;
  private Ticket ticket;
+ protected LocalDateTime created_at = LocalDateTime.now();
  
- @OneToOne
+ public LocalDateTime getCreated_at() {
+	return created_at;
+}
+public void setCreated_at(LocalDateTime created_at) {
+	this.created_at = created_at;
+}
+@OneToOne
  public Ticket getTicket() {
 	return ticket;
 }

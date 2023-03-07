@@ -14,6 +14,7 @@ public interface IGenericDao<K, T extends Serializable> {
    T findOne(final K id);
  
    List<T> findAll();
+   
   
    void save(final T entity);
  
@@ -22,4 +23,7 @@ public interface IGenericDao<K, T extends Serializable> {
    void delete(final T entity);
  
    void deleteById(final K entityId);
+   
+   List<T> findAllExistingElementList(List<K> id);
+   
 }
