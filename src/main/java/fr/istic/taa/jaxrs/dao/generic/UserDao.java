@@ -1,5 +1,7 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
+import javax.persistence.EntityTransaction;
+
 import fr.istic.taa.jaxrs.domain.User;
 
 /**
@@ -20,4 +22,16 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 		return null;
 	}
 	
+	@Override
+	public void delete(User user) {
+		super.delete(user);
+		BugDao bugDao = new BugDao();
+		bugDao.deleteUserData(user);
+		
+		FeatureDao featureDao = new FeatureDao();
+		featureDao.deleteUserData(user);
+		
+		
+
+	}
 }

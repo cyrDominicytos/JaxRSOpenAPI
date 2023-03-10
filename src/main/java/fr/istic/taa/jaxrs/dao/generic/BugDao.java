@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import fr.istic.taa.jaxrs.domain.Bug;
 import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.Ticket;
+import fr.istic.taa.jaxrs.domain.User;
 
 /**
  * 
@@ -33,6 +34,16 @@ public class BugDao extends AbstractJpaDao<Long, Bug>{
 		TypedQuery<Bug> query = entityManager.createQuery("Select b from Bug as b JOIN b.tags as tag where tag.id = :tagId" , Bug.class);	
 		return query.setParameter("tagId", id).getResultList();		
 	}
+	
+	/**
+	 * Delete all bug tickets that has been created by the related user 
+	 * @param user, the related user 
+	 */
+	public void deleteUserData(User user) {
+		TypedQuery<Bug> query = entityManager.createQuery("Delete from Bug as b where b.user = :user" , Bug.class);	
+		 query.setParameter("user", user).executeUpdate();		
+	}
+	
 	
 	
 	public Boolean hasLinkedWithTag(Long id) {

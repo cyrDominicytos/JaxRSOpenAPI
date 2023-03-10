@@ -19,7 +19,7 @@ public class User extends Person implements Serializable{
 	private List<Ticket> tickets;
 	
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE) //when 
 	public List<Ticket> getTickets() {
 		return tickets;
 	}

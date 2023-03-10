@@ -1,6 +1,5 @@
 package fr.istic.taa.jaxrs.dto;
 
-import java.time.LocalDateTime;
 /**
  * @author Cyriaque TOSSOU
  * @author Yosser Eljeddi
