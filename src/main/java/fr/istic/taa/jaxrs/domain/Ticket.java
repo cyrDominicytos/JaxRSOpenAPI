@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,16 +26,15 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class Ticket {
+public class Ticket implements Serializable {
 
 	protected Long id;
-	protected String body;
-	private int status = 0;
+	protected String content;
+	private String state;
 	protected User user; 
-	protected List<Tag> tags;
-	protected List<Support> supports;
-	protected List<Message> messages;
+	protected List<Tag> tags =  new ArrayList<>();
+	protected List<Support> supports =  new ArrayList<>();
+	protected List<Message> messages = new ArrayList<>();
 	protected LocalDateTime created_at = LocalDateTime.now();
 	
 	@OneToMany(mappedBy="ticket")
@@ -82,22 +82,25 @@ public abstract class Ticket {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getBody() {
-		return body;
+		
+	public String getState() {
+		return state;
 	}
-	public int getStatus() {
-		return status;
+	public void setState(String state) {
+		this.state = state;
 	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
+	
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	public void setBody(String body) {
-		this.body = body;
+	public String getContent() {
+		return content;
 	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 }

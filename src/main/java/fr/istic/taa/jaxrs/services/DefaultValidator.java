@@ -11,6 +11,13 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 
+/**
+ * 
+ * @author Cyriaque TOSSOU
+ * @author Yosser Eljeddi
+ *
+ */
+
 public class DefaultValidator<T> {
 				
 		private final Validator validator;

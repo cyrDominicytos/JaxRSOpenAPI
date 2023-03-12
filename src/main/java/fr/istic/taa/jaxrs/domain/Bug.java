@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * @author Yosser Eljeddi
  *
  */
-@Entity
+
 public class Bug extends Ticket implements Serializable {
 
 }

@@ -21,6 +21,16 @@ public class UserDto implements Serializable {
 		
 	}
 	
+	public 	UserDto(User user) {
+		if(user==null) throw new  IllegalArgumentException("The user instance can not be null");
+		else {
+			this.id = user.getId();
+			this.name = user.getName();
+			this.email = user.getEmail();
+			this.created_at = DateFormatter.formatLocalDateTime(user.getCreated_at());
+		}
+	}
+	
 	public UserDto(Long id, String name, String email) {
 		this.id = id;
 		this.name = name;

@@ -93,9 +93,11 @@ public class UserResource{
   }
   
   @PUT
-  @Path("/")
+  @Path("/{id}")
   @Consumes("application/json")
-  public Response updateUser(@PathParam("id") Long id, @Parameter(description="User object that needs to be added to the store", required = true) UserCreateDto userDto) {
+  public Response updateUser(
+		  @PathParam("id") Long id, 
+		  @Parameter(description="User object that needs to be added to the store", required = true) UserCreateDto userDto) {
 	  try {
 		  //Check if the tag id is valid
     	  User user = this.dao.findOne(id);
@@ -131,7 +133,7 @@ public class UserResource{
 		  }
 		 
 		  dao.delete(user);
-		  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDtoBuilder(user).build(),"The Tag has been deleted successfully" )).build();
+		  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDtoBuilder(user).build(),"The User has been deleted successfully" )).build();
 	  }catch(Exception e) {
 		  return Response.status(500).entity(e.getMessage()).build();
 	  }

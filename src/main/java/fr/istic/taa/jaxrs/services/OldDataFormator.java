@@ -1,5 +1,14 @@
 package fr.istic.taa.jaxrs.services;
 
+/**
+ * @author Cyriaque TOSSOU
+ * @author Yosser Eljeddi
+ * 
+ * This Class will be used too format API Response when entity is deleted.
+ * It will create an object with : message and object (the old object)
+ *
+ * @param <T>
+ */
 public class OldDataFormator<T> {
 
 		private String message;

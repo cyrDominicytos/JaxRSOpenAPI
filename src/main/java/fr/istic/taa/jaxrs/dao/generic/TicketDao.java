@@ -16,9 +16,9 @@ import fr.istic.taa.jaxrs.domain.User;
  * @author Yosser Eljeddi
  *
  */
-public class BugDao extends AbstractJpaDao<Long, Bug>{
-	public BugDao() {
-		this.setClazz(Bug.class);
+public class TicketDao extends AbstractJpaDao<Long, Ticket>{
+	public TicketDao() {
+		this.setClazz(Ticket.class);
 	}
 	
 	/**
@@ -26,21 +26,21 @@ public class BugDao extends AbstractJpaDao<Long, Bug>{
 	 * @param id, the given tag id
 	 * @return a list of ticket or an empty list
 	 */
-	public List<Bug> findTicketsByTag(Long id) {
+	public List<Ticket> findTicketsByTag(Long id) {
 		TagDao tagDao = new TagDao();
 		Tag tag = tagDao.findOne(id);
 		if(tag==null)
 			return new ArrayList<>(); 
-		TypedQuery<Bug> query = entityManager.createQuery("Select b from Bug as b JOIN b.tags as tag where tag.id = :tagId" , Bug.class);	
+		TypedQuery<Ticket> query = entityManager.createQuery("Select b from Ticket as b JOIN b.tags as tag where tag.id = :tagId" , Ticket.class);	
 		return query.setParameter("tagId", id).getResultList();		
 	}
 	
 	/**
-	 * Delete all bug tickets that has been created by the related user 
+	 * Delete all tickets that has been created by the related user 
 	 * @param user, the related user 
 	 */
 	public void deleteUserData(User user) {
-		TypedQuery<Bug> query = entityManager.createQuery("Delete from Bug as b where b.user = :user" , Bug.class);	
+		TypedQuery<Ticket> query = entityManager.createQuery("Delete from Ticket as b where b.user = :user" , Ticket.class);	
 		 query.setParameter("user", user).executeUpdate();		
 	}
 	

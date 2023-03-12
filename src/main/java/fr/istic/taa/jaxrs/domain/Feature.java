@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * @author Yosser Eljeddi
  *
  */
-@Entity
+
 public class Feature extends Ticket  implements Serializable {
 	private String utility;
 	private Boolean isBug;

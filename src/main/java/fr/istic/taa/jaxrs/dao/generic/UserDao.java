@@ -25,13 +25,9 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 	@Override
 	public void delete(User user) {
 		super.delete(user);
-		BugDao bugDao = new BugDao();
-		bugDao.deleteUserData(user);
+		TicketDao ticketDao = new TicketDao();
+		ticketDao.deleteUserData(user);
+	
 		
-		FeatureDao featureDao = new FeatureDao();
-		featureDao.deleteUserData(user);
-		
-		
-
 	}
 }

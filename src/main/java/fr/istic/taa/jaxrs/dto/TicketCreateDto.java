@@ -2,6 +2,8 @@ package fr.istic.taa.jaxrs.dto;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import fr.istic.taa.jaxrs.domain.Tag;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,14 +13,15 @@ import jakarta.validation.constraints.NotNull;
  * @author Yosser Eljeddi
  *
  */
-public  class BugCreateDto {
+public  class TicketCreateDto {
 	
 	@NotBlank(message = "The bug description can not be blank")
-	private String body;
-	@NotBlank(message = "The user id can not be blank")
+	private String content;
+	@NotNull(message = "The user id can not be blank")
 	private Long user_id;
 	
-	@NotBlank(message = "You have to add one or many tags to your bug")
+	@NotNull(message = "The ticket tags id can not be null")
+	@NotEmpty(message = "You have to add one or many tags to your ticket")
 	protected List<Long> tagsId;
 	
 	public List<Long> getTagsId() {
@@ -27,13 +30,13 @@ public  class BugCreateDto {
 	public void setTagsId(List<Long> tagsId) {
 		this.tagsId = tagsId;
 	}
-	public String getBody() {
-		return body;
+		
+	public String getContent() {
+		return content;
 	}
-	public void setBody(String body) {
-		this.body = body;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	
 	public Long getUser_id() {
 		return user_id;
 	}

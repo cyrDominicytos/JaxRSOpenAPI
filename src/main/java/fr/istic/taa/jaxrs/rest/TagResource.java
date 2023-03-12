@@ -92,7 +92,9 @@ public class TagResource {
   @PUT
   @Path("/{id}")
   @Consumes("application/json")
-  public Response updateTag(@PathParam("id") Long id,  @Parameter(description = "Tag object that needs to be updated", required = true) TagCreateDto tagDto)  {
+  public Response updateTag(
+		  @PathParam("id") Long id,  
+		  @Parameter(description = "Tag object that needs to be updated", required = true) TagCreateDto tagDto)  {
       try {
     	  	  //Check if the tag id is valid
 	    	  Tag tag = this.dao.findOne(id);
