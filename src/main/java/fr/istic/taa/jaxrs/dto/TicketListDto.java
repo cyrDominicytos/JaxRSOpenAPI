@@ -6,6 +6,7 @@ import java.util.List;
 import fr.istic.taa.jaxrs.domain.Support;
 import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.Ticket;
+import fr.istic.taa.jaxrs.services.DateFormatter;
 
 public class TicketListDto {
 	

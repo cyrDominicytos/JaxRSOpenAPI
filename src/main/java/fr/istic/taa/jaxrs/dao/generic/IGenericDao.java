@@ -33,7 +33,7 @@ public interface IGenericDao<K, T extends Serializable> {
    List<T> findAllExistingElementList(List<K> id);
    
    /**
-    * This method will help to check if the entry with the given id can be deleted (this means it isn't in relation with any other object)
+    * This method will allow to check if the entry with the given ID can be deleted (which means it has no relation with any other object)
     * @param id, the id of the entry that will be deleted
     * @return true if the entry can be deleted or false if not
     */

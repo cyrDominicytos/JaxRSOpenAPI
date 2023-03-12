@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import fr.istic.taa.jaxrs.domain.Person;
 import fr.istic.taa.jaxrs.domain.User;
+import fr.istic.taa.jaxrs.services.DateFormatter;
 
 /**
  * 

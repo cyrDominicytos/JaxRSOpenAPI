@@ -3,6 +3,7 @@ package fr.istic.taa.jaxrs.dto;
 import javax.xml.crypto.Data;
 
 import fr.istic.taa.jaxrs.domain.Tag;
+import fr.istic.taa.jaxrs.services.DateFormatter;
 
 public class TagDto {
 	private Long id;

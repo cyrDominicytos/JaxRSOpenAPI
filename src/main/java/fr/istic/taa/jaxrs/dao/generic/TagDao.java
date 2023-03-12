@@ -16,7 +16,7 @@ public class TagDao extends AbstractJpaDao<Long, Tag>{
 	@Override
 	public Boolean canBeDeleted(Long id) {
 		TicketDao ticketDao = new TicketDao();
-		return ticketDao.hasLinkedWithTag(id);
+		return !ticketDao.hasLinkedWithTag(id);
 	}
 	
 	

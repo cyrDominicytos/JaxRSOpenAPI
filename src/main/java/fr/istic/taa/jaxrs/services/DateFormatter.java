@@ -1,4 +1,4 @@
-package fr.istic.taa.jaxrs.dto;
+package fr.istic.taa.jaxrs.services;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

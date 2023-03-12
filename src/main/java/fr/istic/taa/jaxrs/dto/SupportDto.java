@@ -3,6 +3,7 @@ package fr.istic.taa.jaxrs.dto;
 import java.time.LocalDateTime;
 
 import fr.istic.taa.jaxrs.domain.Support;
+import fr.istic.taa.jaxrs.services.DateFormatter;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 

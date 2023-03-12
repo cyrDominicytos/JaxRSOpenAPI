@@ -31,7 +31,7 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
 		Tag tag = tagDao.findOne(id);
 		if(tag==null)
 			return new ArrayList<>(); 
-		TypedQuery<Ticket> query = entityManager.createQuery("Select b from Ticket as b JOIN b.tags as tag where tag.id = :tagId" , Ticket.class);	
+		TypedQuery<Ticket> query = entityManager.createQuery("Select t from Ticket as t JOIN t.tags as tag where tag.id = :tagId" , Ticket.class);	
 		return query.setParameter("tagId", id).getResultList();		
 	}
 	
