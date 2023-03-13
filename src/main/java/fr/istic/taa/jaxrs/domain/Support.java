@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -24,6 +25,15 @@ public class Support extends Person  implements Serializable{
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 		
+	}
+	
+	//Delete the relationships associated with a Support before deleting the support
+	@PreRemove
+	public void removeTicketsFromSupport() {
+	    for (Ticket ticket : tickets) {
+	        ticket.getSupports().remove(this);
+	    }
+	    tickets.clear();
 	}
 
 	public String getGrad() {

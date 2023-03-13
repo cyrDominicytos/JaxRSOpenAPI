@@ -77,6 +77,7 @@ public class Ticket implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_seq")
 	public Long getId() {
@@ -85,9 +86,7 @@ public class Ticket implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-		
-	
-	
+			
 	public State getState() {
 		return state;
 	}

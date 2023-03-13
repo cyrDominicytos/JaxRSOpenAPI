@@ -14,10 +14,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import fr.istic.taa.jaxrs.dao.generic.TicketDao;
+import fr.istic.taa.jaxrs.dao.generic.SupportDao;
 import fr.istic.taa.jaxrs.dao.generic.TagDao;
 import fr.istic.taa.jaxrs.dao.generic.TicketDao;
 import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.Ticket;
+import fr.istic.taa.jaxrs.domain.Support;
 import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.Ticket;
 import fr.istic.taa.jaxrs.domain.User;
@@ -102,7 +104,7 @@ public class TicketResource {
 	    	  
 	    	  /**
 	    	   * retieve submited tags, check if there are valid 
-	    	   * and then assign them to the Ticket (Ticket)
+	    	   * and then assign them to the Ticket.
 	    	   */
 	    	  List<Long> tagsId  = ticketDto.getTagsId();
 	    	  TagDao tagDao = new TagDao();
@@ -121,8 +123,45 @@ public class TicketResource {
 	  }
   }
   
+  
+  @PUT
+  @Path("/assign_support/{id}")
+  @Consumes("application/json")
+  public Response assignSupport(
+		  @PathParam("id") Long id, 
+		  @Parameter(description="The list of support id that you want to affect to the ticket", required = true) List<Long> supportIds
+		  ) {
+	  try {
+		  //Check if the tag id is valid
+    	  Ticket ticket = this.dao.findOne(id);
+    	  if(ticket==null) 
+    		  return Response.status(Response.Status.NOT_FOUND).entity("There is no ticket with the id="+id).build(); 
+    	  
+    	  /**
+    	   * retieve submited support id, check if there are valid 
+    	   * and then assign them to the Ticket.
+    	   */
+    	  SupportDao supportDao = new SupportDao();
+    	  List<Support> validSupports = supportDao.findAllExistingElementList(supportIds);
+    	  if(validSupports.size()==0)
+    		  return Response.status(Response.Status.BAD_REQUEST).entity("You have to add at least one valid support to your Ticket.").build();
+    	  
+    	  ticket.setSupports(validSupports);
+		  dao.update(ticket);
+		  return Response.ok().entity(new TicketListDto(ticket)).build(); 
+		  
+		 //return Response.ok().entity("The User is updated successfully").build();  
+		 
+	  }catch(Exception e) {
+		  return Response.status(Response.Status.BAD_REQUEST)
+                  .entity(e.getMessage())
+                  .build();
+	  }
+  }
+  
  
-  /*@PUT
+  /*
+  @PUT
   @Path("/changeState/{id}")
   @Consumes("application/json")
   public Response changeState(
@@ -152,7 +191,9 @@ public class TicketResource {
                   .entity(e.getMessage())
                   .build();
 	  }
-  }*/
+  }
+  
+  */
   
   
 }
