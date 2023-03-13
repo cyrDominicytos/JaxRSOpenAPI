@@ -24,6 +24,9 @@ public class SupportCreateDto {
 	@NotBlank(message = "The Support grad can not be blank")
 	private String grad;
 	
+	public SupportCreateDto() {
+       
+    }
 	public SupportCreateDto(String name, String email, String grad) {
         this.name = name;
         this.email = email;

@@ -112,7 +112,6 @@ public class TagResource {
     		  return Response.status(Response.Status.NOT_FOUND).entity("There is no Tag with the id="+id).build(); 
     	  }
 	  }catch(Exception e) {
-		
 		  return Response.status(500).entity(e.getMessage()).build();
 	  }
   }

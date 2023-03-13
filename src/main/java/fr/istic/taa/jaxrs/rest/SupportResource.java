@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,7 +22,9 @@ import fr.istic.taa.jaxrs.dto.SupportCreateDto;
 import fr.istic.taa.jaxrs.dto.SupportDto;
 import fr.istic.taa.jaxrs.dto.UserCreateDto;
 import fr.istic.taa.jaxrs.dto.UserDto;
+import fr.istic.taa.jaxrs.dto.UserDto.UserDtoBuilder;
 import fr.istic.taa.jaxrs.services.DefaultValidator;
+import fr.istic.taa.jaxrs.services.OldDataFormator;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.ConstraintViolation;
 
@@ -92,6 +96,51 @@ public class SupportResource {
 		  return Response.status(Response.Status.BAD_REQUEST)
                   .entity(e.getMessage())
                   .build();
+	  }
+  }
+  
+  @PUT
+  @Path("/{id}")
+  @Consumes("application/json")
+  public Response updateSupport(
+		  @PathParam("id") Long id, 
+		  @Parameter(description="Support object that needs to be updated", required = true) SupportCreateDto supportDto) {
+	  try {
+		  //Check if the tag id is valid
+    	  Support support = this.dao.findOne(id);
+    	  if(support==null) 
+    		  return Response.status(Response.Status.NOT_FOUND).entity("There is no User with the id="+id).build(); 
+    	  
+		  //Validate the constraints on the supportDto
+		  DefaultValidator<SupportCreateDto> validator = new DefaultValidator<>();
+		  Set<ConstraintViolation<SupportCreateDto>> violations = validator.getValidator().validate(supportDto);
+	      if (violations.size()>0)
+	    	  return validator.toResponse(violations);
+	      
+		  support.setEmail(supportDto.getEmail());
+		  support.setName(supportDto.getName());
+		  support.setGrad(supportDto.getGrad());
+		  dao.save(support);   	  
+		  SupportDto dto = new SupportDto(support);
+		  return Response.ok().entity("The Support is updated successfully").build();  
+
+	  }catch(Exception e) {
+		  return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+	  }
+  }
+  
+  @DELETE
+  @Path("/{id}")
+  public Response deleteSupport(@PathParam("id") Long id) {
+	  try {
+		  Support support = dao.findOne(id);
+		  if(support==null)
+			  return Response.status(Response.Status.NOT_FOUND).entity("There is no Support with the id="+id).build();  
+		 
+		  dao.delete(support);
+		  return Response.ok().entity(new OldDataFormator<SupportDto>(new SupportDto(support),"The Support has been deleted successfully" )).build();
+	  }catch(Exception e) {
+		  return Response.status(500).entity(e.getMessage()).build();
 	  }
   }
 }
