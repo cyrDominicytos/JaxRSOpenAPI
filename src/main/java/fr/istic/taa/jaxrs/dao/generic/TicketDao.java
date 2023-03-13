@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
-
-import fr.istic.taa.jaxrs.domain.Bug;
 import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.Ticket;
 import fr.istic.taa.jaxrs.domain.User;

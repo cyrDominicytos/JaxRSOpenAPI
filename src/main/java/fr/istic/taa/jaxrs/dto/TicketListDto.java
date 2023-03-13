@@ -7,17 +7,17 @@ import fr.istic.taa.jaxrs.domain.Support;
 import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.Ticket;
 import fr.istic.taa.jaxrs.services.DateFormatter;
+import fr.istic.taa.jaxrs.services.State;
 
 public class TicketListDto {
 	
 	private Long id;
 	private String content;
+	private State state;
 	private UserDto user;
-	private String state;
+	private String created_at;
+	private List<TagDto> tags = new ArrayList<>();
 	private List<SupportDto> supports = new ArrayList<>();
-	protected List<TagDto> tags = new ArrayList<>();
-	protected String created_at;
-	
 	
 	public TicketListDto(Ticket t) {
 		if(t==null) throw new IllegalArgumentException("The ticket instance can not be null");
@@ -65,12 +65,15 @@ public class TicketListDto {
 	public void setUser(UserDto user) {
 		this.user = user;
 	}
-	public String getState() {
+	
+	public State getState() {
 		return state;
 	}
-	public void setState(String state) {
+
+	public void setState(State state) {
 		this.state = state;
 	}
+
 	public List<SupportDto> getSupports() {
 		return supports;
 	}

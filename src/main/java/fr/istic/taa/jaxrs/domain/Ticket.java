@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -18,6 +19,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import fr.istic.taa.jaxrs.services.State;
 
 /**
  * 
@@ -30,7 +33,7 @@ public class Ticket implements Serializable {
 
 	protected Long id;
 	protected String content;
-	private String state;
+	private State state = State.CREATED;
 	protected User user; 
 	protected List<Tag> tags =  new ArrayList<>();
 	protected List<Support> supports =  new ArrayList<>();
@@ -75,7 +78,7 @@ public class Ticket implements Serializable {
 		this.user = user;
 	}
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_seq")
 	public Long getId() {
 		return id;
 	}
@@ -83,13 +86,14 @@ public class Ticket implements Serializable {
 		this.id = id;
 	}
 		
-	public String getState() {
+	
+	
+	public State getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(State state) {
 		this.state = state;
 	}
-	
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}

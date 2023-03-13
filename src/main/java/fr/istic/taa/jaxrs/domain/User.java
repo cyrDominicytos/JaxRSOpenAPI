@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
@@ -14,12 +15,13 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
+@SequenceGenerator(name="user_seq", sequenceName="user_sequence", allocationSize=1)
 public class User extends Person implements Serializable{
 	
 	private List<Ticket> tickets;
 	
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE) //when 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL) //when 
 	public List<Ticket> getTickets() {
 		return tickets;
 	}

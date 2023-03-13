@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,6 +26,7 @@ import fr.istic.taa.jaxrs.dto.TicketListDto;
 import fr.istic.taa.jaxrs.dto.UserCreateDto;
 import fr.istic.taa.jaxrs.dto.UserDto;
 import fr.istic.taa.jaxrs.services.DefaultValidator;
+import fr.istic.taa.jaxrs.services.State;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
@@ -95,7 +97,7 @@ public class TicketResource {
 	    	  UserDao uDao = new UserDao();
 	    	  User user = uDao.findOne(ticketDto.getUser_id());
 	    	  if(user==null)
-	    		  return Response.status(Response.Status.BAD_REQUEST).entity("The user id that you assign to the ticket is not valid").build();
+	    		  return Response.status(Response.Status.BAD_REQUEST).entity("The user id that you assign to the ticket doesn't exist.").build();
 	    	  ticket.setUser(user);
 	    	  
 	    	  /**
@@ -106,11 +108,11 @@ public class TicketResource {
 	    	  TagDao tagDao = new TagDao();
 	    	  List<Tag> assignedTags = tagDao.findAllExistingElementList(tagsId);
 	    	  if(assignedTags.size()==0)
-	    		  return Response.status(Response.Status.BAD_REQUEST).entity("You have to add at least one valid tag to your Ticket").build();
+	    		  return Response.status(Response.Status.BAD_REQUEST).entity("You have to add at least one valid tag to your Ticket.").build();
 	    	  
 	    	  ticket.setTags(assignedTags);
 			  dao.save(ticket);
-			  return Response.ok().entity("New Ticket created successfully").build(); 
+			  return Response.ok().entity(new TicketListDto(ticket)).build(); 
 	      }
 	  }catch(Exception e) {
 		  return Response.status(Response.Status.BAD_REQUEST)
@@ -118,5 +120,39 @@ public class TicketResource {
                   .build();
 	  }
   }
+  
+ 
+  /*@PUT
+  @Path("/changeState/{id}")
+  @Consumes("application/json")
+  public Response changeState(
+		  @PathParam("id") Long id, 
+		  @Parameter(description="The new state of the tickt", required = true) State state,
+		  @Parameter(description="The new state of the tickt", required = true) Long  person
+		  ) {
+	  try {
+		  //Check if the tag id is valid
+    	  Ticket user = this.dao.findOne(id);
+    	  if(user==null) 
+    		  return Response.status(Response.Status.NOT_FOUND).entity("There is no ticket with the id="+id).build(); 
+    	  
+    		  //Validate the constraints on the user object
+    		  DefaultValidator<UserCreateDto> validator = new DefaultValidator<>();
+    		  Set<ConstraintViolation<UserCreateDto>> violations = validator.getValidator().validate(userDto);
+    	      if (violations.size()>0) 
+    	    	  return validator.toResponse(violations); //one or many constraints are violated, return an error
+    	      
+    	      user.setEmail(userDto.getEmail());
+			  user.setName(userDto.getName());
+			  dao.update(user);
+			  return Response.ok().entity("The User is updated successfully").build();  
+		 
+	  }catch(Exception e) {
+		  return Response.status(Response.Status.BAD_REQUEST)
+                  .entity(e.getMessage())
+                  .build();
+	  }
+  }*/
+  
   
 }

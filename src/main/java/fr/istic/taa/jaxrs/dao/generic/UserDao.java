@@ -22,12 +22,12 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 		return null;
 	}
 	
-	@Override
+	/*@Override
 	public void delete(User user) {
 		super.delete(user);
 		TicketDao ticketDao = new TicketDao();
 		ticketDao.deleteUserData(user);
 	
 		
-	}
+	}*/
 }

@@ -116,9 +116,7 @@ public class UserResource{
 			  return Response.status(Response.Status.NOT_FOUND).entity("There is no User with the id="+id).build(); 
 		  }
 	  }catch(Exception e) {
-		  return Response.status(Response.Status.BAD_REQUEST)
-                  .entity(e.getMessage())
-                  .build();
+		  return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 	  }
   }
   
