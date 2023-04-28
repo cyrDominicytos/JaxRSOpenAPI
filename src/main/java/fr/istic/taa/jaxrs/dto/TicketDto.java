@@ -8,6 +8,7 @@ package fr.istic.taa.jaxrs.dto;
 public class TicketDto {
 	private Long id;
 	private String content;
+	private String title;
 	private int status = 0;
 	private Long user_id;
 	private String created_at;
@@ -48,7 +49,6 @@ public class TicketDto {
 	public TicketDto setCreated_at(String created_at) {
 		this.created_at = created_at;
 		return this;
-	}
-	
+	}	
 	
 }

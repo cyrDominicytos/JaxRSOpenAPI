@@ -23,11 +23,9 @@ import fr.istic.taa.jaxrs.services.OldDataFormator;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.ConstraintViolation;
 
-/**
- * 
+/** 
  * @author Cyriaque TOSSOU
  * @author Yosser Eljeddi
- *
  *
  */
 
@@ -78,6 +76,8 @@ public class TagResource {
 	      }else {
 	    	  Tag tag = new Tag();
 	    	  tag.setName(tagDto.getName());
+	    	  tag.setBackgroundColor(tagDto.getBackgroundColor());
+	    	  tag.setTextColor(tagDto.getTextColor());
 	    	  dao.save(tag);
 	    	  return Response.ok().entity(new TagDto(tag)).build();
 	      }
@@ -106,6 +106,8 @@ public class TagResource {
 	    	    	  return validator.toResponse(violations); //one or many constraints are violated, return an error
 	    	      
 	    		  tag.setName(tagDto.getName());
+	    		  tag.setBackgroundColor(tagDto.getBackgroundColor());
+		    	  tag.setTextColor(tagDto.getTextColor());
 				  dao.update(tag);
 				  return Response.ok().entity("The Tag is updated successfully").build();  
     	  }else {

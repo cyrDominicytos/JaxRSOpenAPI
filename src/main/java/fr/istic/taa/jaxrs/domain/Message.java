@@ -22,8 +22,8 @@ public class Message implements Serializable {
  private Long id;
  private String content;
  private Ticket ticket;
- private Person person;
- private Boolean isSupportMessage; //this will allow to know if the person who send the message is a support or a default user
+ private User user;
+ private Boolean isSupportMessage; //this will allow to know if the User who send the message is a support or a default user
  protected LocalDateTime created_at = LocalDateTime.now();
  
  
@@ -37,11 +37,11 @@ public void setTicket(Ticket ticket) {
 
  
 @OneToOne
-public Person getPerson() {
-	return person;
+public User getUser() {
+	return user;
 }
-public void setPerson(Person person) {
-	this.person = person;
+public void setUser(User user) {
+	this.user = user;
 }
 @Id
  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")

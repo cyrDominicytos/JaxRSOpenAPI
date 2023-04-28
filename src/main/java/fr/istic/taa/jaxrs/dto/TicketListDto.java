@@ -12,13 +12,14 @@ import fr.istic.taa.jaxrs.services.State;
 public class TicketListDto {
 	
 	private Long id;
+	private String title;
 	private String content;
 	private State state;
 	private UserDto user;
 	private String created_at;
 	private List<TagDto> tags = new ArrayList<>();
-	private List<SupportDto> supports = new ArrayList<>();
-	
+	private List<SupportDto> assignedSupports = new ArrayList<>();
+
 	public TicketListDto(Ticket t) {
 		if(t==null) throw new IllegalArgumentException("The ticket instance can not be null");
 		else {
@@ -26,6 +27,7 @@ public class TicketListDto {
 			this.content = t.getContent();
 			this.user = new UserDto(t.getUser());
 			this.state = t.getState();
+			this.title = t.getTitle();
 			this.created_at = DateFormatter.formatLocalDateTime(t.getCreated_at());
 			
 			//add tags
@@ -35,12 +37,13 @@ public class TicketListDto {
 					tags.add(new TagDto(tag));
 				}
 			}
-			
+										
 			//add supports
-			if(!t.getSupports().isEmpty())
+			System.out.println("Taille "+t.getAssignedSupport().size());
+			if(t.getAssignedSupport().size() > 0)
 			{
-				for(Support s: t.getSupports()) {
-					supports.add(new SupportDto(s));
+				for(Support s: t.getAssignedSupport()) {
+					assignedSupports.add(new SupportDto(s));
 				}
 			}
 		}
@@ -74,12 +77,6 @@ public class TicketListDto {
 		this.state = state;
 	}
 
-	public List<SupportDto> getSupports() {
-		return supports;
-	}
-	public void setSupports(List<SupportDto> supports) {
-		this.supports = supports;
-	}
 	public List<TagDto> getTags() {
 		return tags;
 	}
@@ -92,6 +89,13 @@ public class TicketListDto {
 	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
-		
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}	
 
 }

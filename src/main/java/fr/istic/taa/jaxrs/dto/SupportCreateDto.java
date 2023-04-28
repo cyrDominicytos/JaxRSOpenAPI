@@ -24,6 +24,9 @@ public class SupportCreateDto {
 	@NotBlank(message = "The Support grad can not be blank")
 	private String grad;
 	
+	@NotBlank(message = "The Support password can not be blank")
+	private String password;
+	
 	public SupportCreateDto() {
        
     }
@@ -70,5 +73,13 @@ public class SupportCreateDto {
 	public void setGrad(String grad) {
 		this.grad = grad;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 		
 }

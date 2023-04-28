@@ -1,9 +1,11 @@
 package fr.istic.taa.jaxrs.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 
@@ -12,28 +14,27 @@ import javax.persistence.SequenceGenerator;
  * @author Yosser Eljeddi
  */
 @Entity
-@SequenceGenerator(name="support_seq", sequenceName="support_sequence", allocationSize=1)
-public class Support extends Person  implements Serializable{
-	private String grad;
-	private List<Ticket> tickets;
+public class Support extends User  implements Serializable{
+	private String grad; 
+	private List<Ticket> assignedTickets = new ArrayList<>();
 	
-	@ManyToMany(mappedBy="supports")
-	public List<Ticket> getTickets() {
-		return tickets;
+	@ManyToMany(mappedBy="assignedSupport")
+	public List<Ticket> getAssignedTickets() {
+		return assignedTickets;
 	}
 
-	public void setTickets(List<Ticket> tickets) {
-		this.tickets = tickets;
-		
+	public void setAssignedTickets(List<Ticket> assignedTickets) {
+		this.assignedTickets = assignedTickets;
 	}
+
 	
 	//Delete the relationships associated with a Support before deleting the support
 	@PreRemove
 	public void removeTicketsFromSupport() {
-	    for (Ticket ticket : tickets) {
-	        ticket.getSupports().remove(this);
+	    for (Ticket ticket : assignedTickets) {
+	        ticket.getAssignedSupport().remove(this);
 	    }
-	    tickets.clear();
+	    assignedTickets.clear();
 	}
 
 	public String getGrad() {

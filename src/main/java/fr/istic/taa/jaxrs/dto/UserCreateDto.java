@@ -19,6 +19,9 @@ public class UserCreateDto {
 	@Email(message="The User mail adress is not valid")
 	private String email;
 	
+	@NotBlank(message = "The User password can not be blank")
+	private String password = "Test@2023";
+	
 	public String getName() {
 		return name;
 	}
@@ -34,4 +37,14 @@ public class UserCreateDto {
 		this.email = email;
 		return this;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 }

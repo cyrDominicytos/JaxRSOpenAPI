@@ -1,6 +1,7 @@
 package fr.istic.taa.jaxrs;
 
 import io.undertow.Undertow;
+import io.undertow.servlet.api.FilterInfo;
 
 import java.util.logging.Logger;
 

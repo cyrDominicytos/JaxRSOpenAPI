@@ -15,13 +15,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import fr.istic.taa.jaxrs.dao.generic.UserDao;
-import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.User;
-import fr.istic.taa.jaxrs.dto.TagCreateDto;
-import fr.istic.taa.jaxrs.dto.TagDto;
+import fr.istic.taa.jaxrs.domain.Support;
 import fr.istic.taa.jaxrs.dto.UserCreateDto;
 import fr.istic.taa.jaxrs.dto.UserDto;
-import fr.istic.taa.jaxrs.dto.UserDto.UserDtoBuilder;
 import fr.istic.taa.jaxrs.services.DefaultValidator;
 import fr.istic.taa.jaxrs.services.OldDataFormator;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -44,12 +41,12 @@ public class UserResource{
 	
   @GET
   @Path("/")
-  public List<UserDto> getUsers()  {
+  public Response getUsers()  {
 	  List<UserDto> list = new ArrayList<>();
 	  for(User user: this.dao.findAll()){
-		  list.add(new UserDto.UserDtoBuilder(user).build());
+		  list.add(new UserDto(user));
 	  }
-	  return list;
+	  return Response.status(Response.Status.OK).entity(list).build(); 
   }
   
   @GET
@@ -58,7 +55,7 @@ public class UserResource{
       try {
     	  User u =  this.dao.findOne(id);
     	  if(u!=null) {
-    		  UserDto uDto = new UserDto.UserDtoBuilder(u).build();
+    		  UserDto uDto = new UserDto(u);
     		  return Response.ok().entity(uDto).build();  
     	  }else {
     		  return Response.status(Response.Status.NOT_FOUND).entity("There is no user with the id="+id).build(); 
@@ -81,8 +78,9 @@ public class UserResource{
 	    	  User user = new User();
 			  user.setEmail(userDto.getEmail());
 			  user.setName(userDto.getName());
+			  user.setPassword(userDto.getPassword()); 
 			  dao.save(user);
-			  UserDto dto = new UserDto.UserDtoBuilder(user).build();
+			  UserDto dto = new UserDto(user);
 			  return Response.ok().entity(dto).build(); 
 	      }
 	  }catch(Exception e) {
@@ -110,6 +108,7 @@ public class UserResource{
     	      
     	      user.setEmail(userDto.getEmail());
 			  user.setName(userDto.getName());
+			  user.setPassword(userDto.getPassword());
 			  dao.update(user);
 			  return Response.ok().entity("The User is updated successfully").build();  
 		  }else {
@@ -131,7 +130,7 @@ public class UserResource{
 		  }
 		 
 		  dao.delete(user);
-		  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDtoBuilder(user).build(),"The User has been deleted successfully" )).build();
+		  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDto(user),"The User has been deleted successfully" )).build();
 	  }catch(Exception e) {
 		  return Response.status(500).entity(e.getMessage()).build();
 	  }

@@ -1,7 +1,13 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
-import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+
+import fr.istic.taa.jaxrs.domain.Tag;
+import fr.istic.taa.jaxrs.domain.Ticket;
 import fr.istic.taa.jaxrs.domain.User;
 
 /**
@@ -19,6 +25,15 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 	@Override
 	public Boolean canBeDeleted(Long id) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * Find the list of user and their type (hint : user has Support subclass with sigle table Inheritance) 
+	 * @return a list of user or an empty list
+	 */
+	public List<User> findAllWithRole() {
+		
 		return null;
 	}
 	

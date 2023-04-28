@@ -22,7 +22,6 @@ import fr.istic.taa.jaxrs.dto.SupportCreateDto;
 import fr.istic.taa.jaxrs.dto.SupportDto;
 import fr.istic.taa.jaxrs.dto.UserCreateDto;
 import fr.istic.taa.jaxrs.dto.UserDto;
-import fr.istic.taa.jaxrs.dto.UserDto.UserDtoBuilder;
 import fr.istic.taa.jaxrs.services.DefaultValidator;
 import fr.istic.taa.jaxrs.services.OldDataFormator;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -87,6 +86,7 @@ public class SupportResource {
 			  support.setEmail(supportDto.getEmail());
 			  support.setName(supportDto.getName());
 			  support.setGrad(supportDto.getGrad());
+			  support.setPassword(supportDto.getPassword());
 			  dao.save(support);
 			  	    	  
 			  SupportDto dto = new SupportDto(support);
@@ -120,6 +120,7 @@ public class SupportResource {
 		  support.setEmail(supportDto.getEmail());
 		  support.setName(supportDto.getName());
 		  support.setGrad(supportDto.getGrad());
+		  support.setPassword(supportDto.getPassword());
 		  dao.save(support);   	  
 		  SupportDto dto = new SupportDto(support);
 		  return Response.ok().entity("The Support is updated successfully").build();  

@@ -32,11 +32,13 @@ import fr.istic.taa.jaxrs.services.State;
 public class Ticket implements Serializable {
 
 	protected Long id;
+	protected String title;
 	protected String content;
 	private State state = State.CREATED;
 	protected User user; 
 	protected List<Tag> tags =  new ArrayList<>();
-	protected List<Support> supports =  new ArrayList<>();
+	protected List<Support> assignedSupport = new ArrayList<>();
+	
 	protected List<Message> messages = new ArrayList<>();
 	protected LocalDateTime created_at = LocalDateTime.now();
 	
@@ -48,13 +50,12 @@ public class Ticket implements Serializable {
 		this.messages = messages;
 	}
 	
-	
 	@ManyToMany
-	public List<Support> getSupports() {
-		return supports;
+	public List<Support> getAssignedSupport() {
+		return assignedSupport;
 	}
-	public void setSupports(List<Support> supports) {
-		this.supports = supports;
+	public void setAssignedSupport(List<Support> assignedSupport) {
+		this.assignedSupport = assignedSupport;
 	}
 	
 	@ManyToMany
@@ -66,6 +67,7 @@ public class Ticket implements Serializable {
 	public List<Tag> getTags() {
 		return tags;
 	}
+	
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
@@ -106,4 +108,10 @@ public class Ticket implements Serializable {
 		this.content = content;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

@@ -23,6 +23,9 @@ public class Tag implements Serializable{
 	
 	private Long id;
 	private String name;
+	private String textColor = "#23547B";
+	private String backgroundColor = "#B3E5FC";
+	
 	protected LocalDateTime created_at = LocalDateTime.now();
 	
 	public LocalDateTime getCreated_at() {
@@ -44,6 +47,18 @@ public class Tag implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getTextColor() {
+		return textColor;
+	}
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+	}
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
 	}
 	
 }

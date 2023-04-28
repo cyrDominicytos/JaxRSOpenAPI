@@ -92,6 +92,7 @@ public class TicketResource {
 	    	  
 	    	  Ticket ticket = new Ticket();
 	    	  ticket.setContent(ticketDto.getContent());
+	    	  ticket.setTitle(ticketDto.getTitle());
 	    	  
 	    	  /**
 	    	   * Assign the appropriate user (the owner of the ticket) to the ticket
@@ -123,16 +124,15 @@ public class TicketResource {
 	  }
   }
   
-  
   @PUT
   @Path("/assign_support/{id}")
   @Consumes("application/json")
   public Response assignSupport(
-		  @PathParam("id") Long id, 
-		  @Parameter(description="The list of support id that you want to affect to the ticket", required = true) List<Long> supportIds
-		  ) {
-	  try {
-		  //Check if the tag id is valid
+  		  @PathParam("id") Long id, 
+  		  @Parameter(description="The list of support id that you want to affect to the ticket", required = true) List<Long> supportIds
+  		  ) {
+  	  try {
+  		  //Check if the tag id is valid
     	  Ticket ticket = this.dao.findOne(id);
     	  if(ticket==null) 
     		  return Response.status(Response.Status.NOT_FOUND).entity("There is no ticket with the id="+id).build(); 
@@ -146,54 +146,16 @@ public class TicketResource {
     	  if(validSupports.size()==0)
     		  return Response.status(Response.Status.BAD_REQUEST).entity("You have to add at least one valid support to your Ticket.").build();
     	  
-    	  ticket.setSupports(validSupports);
-		  dao.update(ticket);
-		  return Response.ok().entity(new TicketListDto(ticket)).build(); 
-		  
-		 //return Response.ok().entity("The User is updated successfully").build();  
-		 
-	  }catch(Exception e) {
-		  return Response.status(Response.Status.BAD_REQUEST)
+    	  ticket.setAssignedSupport(validSupports);
+  		  dao.update(ticket);
+  		  return Response.ok().entity(new TicketListDto(ticket)).build(); 
+  		  //return Response.ok().entity("The User is updated successfully").build();  
+  		  
+  	 }catch(Exception e) {
+  		  return Response.status(Response.Status.BAD_REQUEST)
                   .entity(e.getMessage())
                   .build();
-	  }
+  	  }
   }
-  
- 
-  /*
-  @PUT
-  @Path("/changeState/{id}")
-  @Consumes("application/json")
-  public Response changeState(
-		  @PathParam("id") Long id, 
-		  @Parameter(description="The new state of the tickt", required = true) State state,
-		  @Parameter(description="The new state of the tickt", required = true) Long  person
-		  ) {
-	  try {
-		  //Check if the tag id is valid
-    	  Ticket user = this.dao.findOne(id);
-    	  if(user==null) 
-    		  return Response.status(Response.Status.NOT_FOUND).entity("There is no ticket with the id="+id).build(); 
-    	  
-    		  //Validate the constraints on the user object
-    		  DefaultValidator<UserCreateDto> validator = new DefaultValidator<>();
-    		  Set<ConstraintViolation<UserCreateDto>> violations = validator.getValidator().validate(userDto);
-    	      if (violations.size()>0) 
-    	    	  return validator.toResponse(violations); //one or many constraints are violated, return an error
-    	      
-    	      user.setEmail(userDto.getEmail());
-			  user.setName(userDto.getName());
-			  dao.update(user);
-			  return Response.ok().entity("The User is updated successfully").build();  
-		 
-	  }catch(Exception e) {
-		  return Response.status(Response.Status.BAD_REQUEST)
-                  .entity(e.getMessage())
-                  .build();
-	  }
-  }
-  
-  */
-  
-  
+   
 }

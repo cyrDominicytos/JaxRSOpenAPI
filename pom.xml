@@ -104,7 +104,6 @@
 		    <classifier>wildfly-27.0.0.Alpha4-patch</classifier>
 		    <type>zip</type>
 		</dependency>
-		
 	</dependencies>
 	<build>
 		<defaultGoal>install</defaultGoal>

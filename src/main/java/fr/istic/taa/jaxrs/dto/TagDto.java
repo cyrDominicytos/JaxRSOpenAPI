@@ -8,6 +8,8 @@ import fr.istic.taa.jaxrs.services.DateFormatter;
 public class TagDto {
 	private Long id;
 	private String name;
+	private String textColor;
+	private String backgroundColor;
 	private String created_at; 
 	
 	/**
@@ -18,6 +20,8 @@ public class TagDto {
 		if(tag!=null) {
 			this.id = tag.getId();
 			this.name = tag.getName();
+			this.backgroundColor = tag.getBackgroundColor();
+			this.textColor = tag.getTextColor();
 			this.created_at = DateFormatter.formatLocalDateTime(tag.getCreated_at());
 		}else throw new IllegalArgumentException("The Tag instance can not be null");
 	}
@@ -53,6 +57,20 @@ public class TagDto {
 		this.name = name;
 		return this;
 	}
-	
-	
+
+	public String getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
+	}
+
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
 }

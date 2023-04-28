@@ -20,6 +20,9 @@ public  class TicketCreateDto {
 	@NotNull(message = "The user id can not be blank")
 	private Long user_id;
 	
+	@NotBlank(message = "The ticket title can not be blank")
+	private String title;
+	
 	@NotNull(message = "The ticket tags id can not be null")
 	@NotEmpty(message = "You have to add one or many tags to your ticket")
 	protected List<Long> tagsId;
@@ -44,4 +47,13 @@ public  class TicketCreateDto {
 		this.user_id = user_id;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
+		
 }
