@@ -146,7 +146,7 @@ public class TicketResource {
     	  if(validSupports.size()==0)
     		  return Response.status(Response.Status.BAD_REQUEST).entity("You have to add at least one valid support to your Ticket.").build();
     	  
-    	  ticket.setAssignedSupport(validSupports);
+    	  ticket.getAssignedSupport().addAll(validSupports);
   		  dao.update(ticket);
   		  return Response.ok().entity(new TicketListDto(ticket)).build(); 
   		  //return Response.ok().entity("The User is updated successfully").build();  
@@ -158,4 +158,37 @@ public class TicketResource {
   	  }
   }
    
+  
+  @PUT
+  @Path("/addTags/{id}")
+  @Consumes("application/json")
+  public Response addTags(
+  		  @PathParam("id") Long id, 
+  		  @Parameter(description="The list of tag id that you want to add to the ticket", required = true) List<Long> tagsId
+  		  ) {
+  	  try {
+  		  //Check if the ticket id is valid
+    	  Ticket ticket = this.dao.findOne(id);
+    	  if(ticket==null) 
+    		  return Response.status(Response.Status.NOT_FOUND).entity("There is no ticket with the id="+id).build(); 
+    	  
+    	  /**
+    	   * retieve submited tags, check if there are valid 
+    	   * and then assign them to the Ticket.
+    	   */
+    	  TagDao tagDao = new TagDao();
+    	  List<Tag> assignedTags = tagDao.getUnlinkedTagWithTicket(tagsId, id);
+    	  if(assignedTags.size()==0)
+    		  return Response.status(Response.Status.BAD_REQUEST).entity("All your summited tags are already assinged to this ticket or there are all invalid tags.").build();
+    	  
+    	  ticket.getTags().addAll(assignedTags);
+  		  dao.update(ticket);
+  		  return Response.ok().entity(new TicketListDto(ticket)).build();  
+  		  
+  	 }catch(Exception e) {
+  		  return Response.status(Response.Status.BAD_REQUEST)
+                  .entity(e.getMessage())
+                  .build();
+  	  }
+  }
 }

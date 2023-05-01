@@ -21,7 +21,7 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-
+import fr.istic.taa.jaxrs.rest.MessageResource;
 import fr.istic.taa.jaxrs.rest.SupportResource;
 import fr.istic.taa.jaxrs.rest.SwaggerResource;
 import fr.istic.taa.jaxrs.rest.TagResource;
@@ -59,7 +59,7 @@ public class TestApplication extends Application {
         clazzes.add(TicketResource.class);
         clazzes.add(TagResource.class);
         clazzes.add(SupportResource.class);
-        
+        clazzes.add(MessageResource.class);
         clazzes.add(OpenApiResource.class);
         clazzes.add(SwaggerResource.class);
         clazzes.add(CorsFilter.class);

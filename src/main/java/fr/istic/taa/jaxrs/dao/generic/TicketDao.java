@@ -33,6 +33,8 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
 		return query.setParameter("tagId", id).getResultList();		
 	}
 	
+	
+	
 	/**
 	 * Delete all tickets that has been created by the related user 
 	 * @param user, the related user 
@@ -41,6 +43,7 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
 		TypedQuery<Ticket> query = entityManager.createQuery("Delete from Ticket as b where b.user = :user" , Ticket.class);	
 		 query.setParameter("user", user).executeUpdate();		
 	}
+	
 	
 	
 	

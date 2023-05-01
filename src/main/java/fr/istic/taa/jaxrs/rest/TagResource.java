@@ -39,12 +39,12 @@ public class TagResource {
 	
   @GET
   @Path("/")
-  public List<TagDto> getTags()  {      
+  public Response getTags()  {      
       List<TagDto> list = new ArrayList<>();
 	  for(Tag tag: this.dao.findAll()){
 		  list.add(new TagDto(tag));
 	  }
-	  return list;
+	  return Response.ok().entity(list).build();
   }
   
   @GET

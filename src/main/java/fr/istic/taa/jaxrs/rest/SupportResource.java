@@ -44,12 +44,12 @@ public class SupportResource {
 	
   @GET
   @Path("/")
-  public List<SupportDto> getSupports()  {
+  public Response getSupports()  {
 	  List<SupportDto> list = new ArrayList<>();
 	  for(Support support: this.dao.findAll()){
 		  list.add(new SupportDto(support));
 	  }
-	  return list;
+	  return Response.ok().entity(list).build();
   }
   
   @GET
