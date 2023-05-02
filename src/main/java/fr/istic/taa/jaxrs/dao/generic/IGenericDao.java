@@ -25,9 +25,9 @@ public interface IGenericDao<K, T extends Serializable> {
    
    
    /**
-    * Search for each if in the given list, the related entry
+    * for each element of a given list (ids list) , search if their are related to an entry
     * @param id, the list of id 
-    * @return a list of the entry that has been fund
+    * @return a list of the entry that has their id in the given list
     */
    List<T> findAllExistingElementList(List<K> id);
    

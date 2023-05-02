@@ -124,6 +124,82 @@ public class TicketResource {
 	  }
   }
   
+  
+  @PUT
+  @Path("/{id}")
+  @Consumes("application/json")
+  public Response updateTicket(
+		  @PathParam("id") Long id,
+		  @Parameter(description = "Ticket object that needs to be added to the store", required = true) TicketCreateDto ticketDto) {
+	  try {
+		  DefaultValidator<TicketCreateDto> validator = new DefaultValidator<>();
+		  Set<ConstraintViolation<TicketCreateDto>> violations = validator.getValidator().validate(ticketDto);
+	      if (violations.size()>0) {
+	    	  return validator.toResponse(violations);
+	      }else {
+	    	  
+	    	  
+	    	  Ticket ticket = this.dao.findOne(id);
+	    	  if(ticket==null)
+	    		  return Response.status(Response.Status.BAD_REQUEST).entity("The ticket id that you want to update doesn't exist.").build();
+		    	 
+	    	  ticket.setContent(ticketDto.getContent());
+	    	  ticket.setTitle(ticketDto.getTitle());
+	    	  
+	    	  /**
+	    	   * Assign the appropriate user (the owner of the ticket) to the ticket
+	    	   */
+	    	  UserDao uDao = new UserDao();
+	    	  User user = uDao.findOne(ticketDto.getUser_id());
+	    	  if(user==null)
+	    		  return Response.status(Response.Status.BAD_REQUEST).entity("The user id that you assign to the ticket doesn't exist.").build();
+	    	  ticket.setUser(user);
+	    	  
+	    	  /**
+	    	   * retieve submited tags, check if there are valid 
+	    	   * and then assign them to the Ticket.
+	    	   */
+	    	  List<Long> tagsId  = ticketDto.getTagsId();
+	    	  TagDao tagDao = new TagDao();
+	    	  List<Tag> assignedTags = tagDao.findAllExistingElementList(tagsId);
+	    	  if(assignedTags.size()==0)
+	    		  return Response.status(Response.Status.BAD_REQUEST).entity("You have to add at least one valid tag to your Ticket.").build();
+	    	  
+	    	  ticket.setTags(assignedTags);
+			  dao.update(ticket);
+			  return Response.ok().entity(new TicketListDto(ticket)).build(); 
+	      }
+	  }catch(Exception e) {
+		  return Response.status(Response.Status.BAD_REQUEST)
+                  .entity(e.getMessage())
+                  .build();
+	  }
+  }
+  
+  @PUT
+  @Path("/toggleState/{id}")
+  @Consumes("application/json")
+  public Response openOrCloseTicket(@PathParam("id") Long id) {
+	  try {
+	    	  Ticket ticket = this.dao.findOne(id);
+	    	  if(ticket==null)
+	    		  return Response.status(Response.Status.BAD_REQUEST).entity("The ticket id that you want to update doesn't exist.").build();
+		      if(ticket.getState()==State.CREATED)
+		    	  ticket.setState(State.CLOSED);
+		      else
+		    	  ticket.setState(State.CREATED);
+			  dao.update(ticket);
+			  return Response.ok().entity(new TicketListDto(ticket)).build(); 
+	      
+	  }catch(Exception e) {
+		  return Response.status(Response.Status.BAD_REQUEST)
+                  .entity(e.getMessage())
+                  .build();
+	  }
+  }
+  
+  
+  
   @PUT
   @Path("/assign_support/{id}")
   @Consumes("application/json")

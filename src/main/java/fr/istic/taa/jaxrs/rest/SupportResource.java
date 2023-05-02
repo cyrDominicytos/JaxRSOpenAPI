@@ -88,7 +88,7 @@ public class SupportResource {
 			  support.setGrad(supportDto.getGrad());
 			  support.setPassword(supportDto.getPassword());
 			  dao.save(support);
-			  	    	  
+			  support.setRole("Support");    	  
 			  SupportDto dto = new SupportDto(support);
 			  return Response.ok().entity(dto).build(); 
 	      }

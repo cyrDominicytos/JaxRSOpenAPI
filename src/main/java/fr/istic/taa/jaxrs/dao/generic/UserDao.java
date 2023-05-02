@@ -21,6 +21,18 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 	public UserDao() {
 		this.setClazz(User.class);
 	}
+	
+	/**
+	 * Find user by its email and password
+	 * @param email, the user email
+	 * @param pwd, the user password
+	 * @return an instance of User or null
+	 */
+	public User findByEmailAndPassword(String email, String pwd) {
+		TypedQuery<User> query = entityManager.createQuery("Select u from User as u where u.email = :email and u.password = :pwd" , User.class);	
+		return query.setParameter("email", email).setParameter("pwd", pwd).getSingleResult();	
+	}
+	
 
 	@Override
 	public Boolean canBeDeleted(Long id) {
@@ -28,14 +40,7 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 		return null;
 	}
 	
-	/**
-	 * Find the list of user and their type (hint : user has Support subclass with sigle table Inheritance) 
-	 * @return a list of user or an empty list
-	 */
-	public List<User> findAllWithRole() {
-		
-		return null;
-	}
+	
 	
 	/*@Override
 	public void delete(User user) {

@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import fr.istic.taa.jaxrs.dao.generic.UserDao;
 import fr.istic.taa.jaxrs.domain.User;
 import fr.istic.taa.jaxrs.domain.Support;
+import fr.istic.taa.jaxrs.dto.UserConnectDto;
 import fr.istic.taa.jaxrs.dto.UserCreateDto;
 import fr.istic.taa.jaxrs.dto.UserDto;
 import fr.istic.taa.jaxrs.services.DefaultValidator;
@@ -61,7 +62,7 @@ public class UserResource{
     		  return Response.status(Response.Status.NOT_FOUND).entity("There is no user with the id="+id).build(); 
     	  }
 	  }catch(Exception e) {
-		  return Response.status(500).entity(e.getMessage()).build();
+		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 	  }
   }
 
@@ -80,11 +81,37 @@ public class UserResource{
 			  user.setName(userDto.getName());
 			  user.setPassword(userDto.getPassword()); 
 			  dao.save(user);
+			  user.setRole("User");
 			  UserDto dto = new UserDto(user);
 			  return Response.ok().entity(dto).build(); 
 	      }
 	  }catch(Exception e) {
-		  return Response.status(Response.Status.BAD_REQUEST)
+		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                  .entity(e.getMessage() +"=> Email/Password incorrect")
+                  .build();
+	  }
+  }
+  
+  @POST
+  @Path("/login")
+  @Consumes("application/json")
+  public Response connectUser(
+		  @Parameter(description = "The user email and password as an object", required = true) UserConnectDto userDto ) {
+	  try {
+		  DefaultValidator<UserConnectDto> validator = new DefaultValidator<>();
+		  Set<ConstraintViolation<UserConnectDto>> violations = validator.getValidator().validate(userDto);
+	      if (violations.size()>0) {
+	    	  return validator.toResponse(violations);
+	      }else {
+	    	  User user = this.dao.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
+	    	  if(user==null)
+	    		  return Response.status(Response.Status.FORBIDDEN).entity("Email/Password incorrect").build(); 
+			 
+			  UserDto dto = new UserDto(user);
+			  return Response.ok().entity(dto).build(); 
+	      }
+	  }catch(Exception e) {
+		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                   .entity(e.getMessage())
                   .build();
 	  }
@@ -115,7 +142,7 @@ public class UserResource{
 			  return Response.status(Response.Status.NOT_FOUND).entity("There is no User with the id="+id).build(); 
 		  }
 	  }catch(Exception e) {
-		  return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 	  }
   }
   
@@ -132,7 +159,7 @@ public class UserResource{
 		  dao.delete(user);
 		  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDto(user),"The User has been deleted successfully" )).build();
 	  }catch(Exception e) {
-		  return Response.status(500).entity(e.getMessage()).build();
+		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 	  }
   }
   
