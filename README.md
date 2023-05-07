@@ -1,7 +1,7 @@
 ## How to run this project ?
 
 1. Clone the remote repository : git clone https://github.com/cyrDominicytos/JaxRSOpenAPI.git
-2. Create empty data base named : issue_manager_db (mysql_dev is our default persistence config)
+2. Create an empty data base named : issue_manager_db (mysql_dev is our default persistence config)
 3. Start the server : run the file /src/main/java/fr.istic.taa.jaxrs/RestServer.java
 
 ## How to access to the API documentation : (
