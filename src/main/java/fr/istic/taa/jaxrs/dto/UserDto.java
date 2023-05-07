@@ -2,8 +2,6 @@ package fr.istic.taa.jaxrs.dto;
 
 import java.io.Serializable;
 
-import fr.istic.taa.jaxrs.domain.Person;
-import fr.istic.taa.jaxrs.domain.Tag;
 import fr.istic.taa.jaxrs.domain.User;
 import fr.istic.taa.jaxrs.services.DateFormatter;
 
@@ -73,8 +71,5 @@ public class UserDto implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-
-	
 		
 }
