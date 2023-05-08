@@ -22,7 +22,6 @@ public class MessageDao extends AbstractJpaDao<Long, Message>{
 
 	@Override
 	public Boolean canBeDeleted(Long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

@@ -69,6 +69,23 @@ public class SupportResource {
                   .build();
 	  }
   }
+  
+  @GET
+  @Path("/availables/{id}")
+  public Response getAvailableSupportByTicketId(@PathParam("id") Long id)  {      
+      try {
+    	  
+    	  List<SupportDto> list = new ArrayList<>();
+    	  for(Support support: this.dao.findAvailableSupports(id)){
+    		  list.add(new SupportDto(support));
+    	  }
+    	  return Response.ok().entity(list).build();
+	  }catch(Exception e) {
+		  return Response.status(500)
+                  .entity(e.getMessage())
+                  .build();
+	  }
+  }
 
   @POST
   @Path("/")

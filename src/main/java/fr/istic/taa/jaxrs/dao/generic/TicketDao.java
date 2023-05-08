@@ -33,6 +33,16 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
 		return query.setParameter("tagId", id).getResultList();		
 	}
 	
+	/**
+	 * Find the list of ticket that has been created by a user
+	 * @param id, the user id
+	 * @return a list of ticket or an empty list
+	 */
+	public List<Ticket> findTicketsByUser(Long id) {
+		TypedQuery<Ticket> query = entityManager.createQuery("Select t from Ticket as t JOIN t.user as user  where user.id = :userId" , Ticket.class);	
+		return query.setParameter("userId", id).getResultList();		
+	}
+	
 	
 	
 	/**
@@ -40,7 +50,7 @@ public class TicketDao extends AbstractJpaDao<Long, Ticket>{
 	 * @param user, the related user 
 	 */
 	public void deleteUserData(User user) {
-		TypedQuery<Ticket> query = entityManager.createQuery("Delete from Ticket as b where b.user = :user" , Ticket.class);	
+		TypedQuery<Ticket> query = entityManager.createQuery("Delete from Ticket as t where t.user = :user" , Ticket.class);	
 		 query.setParameter("user", user).executeUpdate();		
 	}
 	

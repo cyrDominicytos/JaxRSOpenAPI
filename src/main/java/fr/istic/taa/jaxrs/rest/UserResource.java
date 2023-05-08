@@ -122,7 +122,7 @@ public class UserResource{
   @Consumes("application/json")
   public Response updateUser(
 		  @PathParam("id") Long id, 
-		  @Parameter(description="User object that needs to be added to the store", required = true) UserCreateDto userDto) {
+		  @Parameter(description="User object that needs to be updated to the store", required = true) UserCreateDto userDto) {
 	  try {
 		  //Check if the tag id is valid
     	  User user = this.dao.findOne(id);
@@ -155,11 +155,16 @@ public class UserResource{
 		  {
 			  return Response.status(Response.Status.NOT_FOUND).entity("There is no User with the id="+id).build();  
 		  }
-		 
-		  dao.delete(user);
-		  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDto(user),"The User has been deleted successfully" )).build();
+		  
+		  if(dao.canBeDeleted(id))
+		  {
+			  dao.delete(user);
+			  return Response.ok().entity(new OldDataFormator<UserDto>(new UserDto(user),"The User has been deleted successfully" )).build();
+		  }else
+			  return Response.status(Response.Status.FORBIDDEN).entity("This user can not be deleted because he has a ticket").build();  
+		
 	  }catch(Exception e) {
-		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		  return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("hiii=>"+e.getMessage()).build();
 	  }
   }
   

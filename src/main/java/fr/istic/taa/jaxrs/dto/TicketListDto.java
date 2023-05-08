@@ -96,6 +96,16 @@ public class TicketListDto {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public List<SupportDto> getAssignedSupports() {
+		return assignedSupports;
+	}
+
+	public void setAssignedSupports(List<SupportDto> assignedSupports) {
+		this.assignedSupports = assignedSupports;
 	}	
+	
+	
 
 }

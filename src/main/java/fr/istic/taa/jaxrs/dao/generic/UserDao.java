@@ -36,8 +36,9 @@ public class UserDao extends AbstractJpaDao<Long, User> {
 
 	@Override
 	public Boolean canBeDeleted(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		//the user can be deleted if he doesn't have a ticket
+		TicketDao tDao = new TicketDao();
+		return tDao.findTicketsByUser(id).size() > 0 ? false : true;
 	}
 	
 	
